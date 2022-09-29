@@ -58,7 +58,7 @@ def main() -> None:
     if win_condition:
         return print(f"You won in {turn}/6 turns!")  # Win message
     else:
-        return print("X/6 - Sorry, try again tomorrow!") # Lose message
+        return print("X/6 - Sorry, try again tomorrow!")  # Lose message
 
 
 if __name__ == "__main__":
