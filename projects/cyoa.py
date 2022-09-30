@@ -52,7 +52,7 @@ def main() -> None:
     if start == "1":  # Story
         level_select()
     if start == "2":  # Shop
-        spirit_spent:int = shop(points, fame)
+        spirit_spent: int = shop(points, fame)
         points -= spirit_spent
         main()
     if start == "3":  # Exit
@@ -128,7 +128,7 @@ def cost(start, time) -> int:
 
 def level_select() -> None:
     """Selection of levels based on user input. Forces level one, but after beating it player can start to choose levels to replay or keep going in story."""
-    levels_list: list[function] = [rules, level_one, level_two, level_three, level_four]  # Level functions
+    levels_list: list = [rules, level_one, level_two, level_three, level_four]  # Level functions
     levels_list_str: list[str] = ["0. Rules", "1. Northern Battlefield", "2. Endless Wilderness", "3. Frontline Commander", "4. Infinite Mode"]  # Level names
     if level == 0:  # Forced level
         level_one()
@@ -232,7 +232,7 @@ def level_four() -> None:
         check_length_of_fight.append(str(i))
     while choose_fight not in check_length_of_fight:
         choose_fight = input("Please choose an integer from 1 to 25")
-    win_cond: int = round(int(choose_fight)/2)  # Majority wins means victory
+    win_cond: int = round(int(choose_fight) / 2)  # Majority wins means victory
     result: list[int] = best_out_of_x(win_cond, range(15), False)
     win_message: str = f"You won the fight with {result[0]} wins! The name {player} gains {result[2]} Fame across spacetime. You gain {result[3]} Spirit."
     lose_message: str = f"You have been overwhelmed in battle and retreat, but obtained {result[0]} wins! The name {player} gains {result[2]} Fame across spacetime. You gain {result[3]} Spirit."
@@ -315,7 +315,7 @@ def win_or_defeat(level_add: int, level_func, win_cond: int, player_score: int, 
     if enemy_score == win_cond:  # Loss
         print(lose_message)
         if not infinite:  # Normal levels
-            defeat: str = input(f"1. Fight again or 2. retreat?")
+            defeat: str = input("1. Fight again or 2. retreat?")
             while defeat not in ["1", "2"]:  # Return or repeat
                 defeat = input("Choose to 1. Fight or 2. Retreat")
             if defeat == "1":
