@@ -4,8 +4,7 @@ import random
 
 __author__: str = "730575704"
 
-# Guide to the manual grader:
-# I wrote a ton of code (over 400 lines with low redundancy). Sorry, I read "game" and went all out
+# Guide to the manual grader: I wrote a ton of code (over 400 lines with low redundancy). Sorry, I read "game" and went all out
 # So to help you grade and double check for my own sake I will make note of the key rubric items.
 # That said, I put a lot of effort and time so I would greatly appreciate if you played the game, it should be fun. About 5-10 minutes play time
 # Now, to the heart of things:
@@ -46,9 +45,9 @@ def main() -> None:
         exit_message = "Proclaim Victory! (exit)"
     print(f"Welcome {player} to RPS War\n1. {story} your legend \n2. Improve your strength (shop) \n3. {exit_message}")  # 3 routes
     print(f"Fame: {fame}  Spirit: {points}")  # Points and score
-    start: str = input("Enter 1, 2, or 3 to choose.")  # Choose route
+    start: str = str(input("Enter 1, 2, or 3 to choose."))  # Choose route
     while start not in ["1", "2", "3"]:  # Confirms choice is available
-        start = input("Please choose 1, 2, or 3: ")
+        start = str(input("Please choose 1, 2, or 3: "))
     if start == "1":  # Story
         level_select()
     if start == "2":  # Shop
@@ -69,7 +68,7 @@ def greet() -> None:
     global player
     if player == "":  # As game loops a lot do not want to keep reassigning name
         print("In an age where conflict was common, before humans used guns and swords, the fist settled the fight. You are a champion of this era.")
-        player = input("The Great ")
+        player = str(input("The Great "))
         print(f"Your people have been pushed back by the opposing tribe, and now you are the last line of defense against this mysterious invading tribe!!! Ready? {ROCK},{PAPER},{SCISSORS} !")
 
 
@@ -97,9 +96,9 @@ def shop(spirit, fame) -> int:
             print(f"{i} costs {spirit_cost} Spirit")
         j += 1
     skills_shop.append("Leave")
-    purchase_choice: str = input("Select a skill to buy or Leave: ")
+    purchase_choice: str = str(input("Select a skill to buy or Leave: "))
     while purchase_choice not in skills_shop:  # Ensures input
-        purchase_choice = input("Choose a skill or Leave: ")
+        purchase_choice = str(input("Choose a skill or Leave: "))
     if purchase_choice == "Leave":  # No change and returns to main
         return 0
     else:  # Skill select checks
@@ -123,7 +122,7 @@ def shop(spirit, fame) -> int:
 
 def cost(start, time) -> int:
     """Calculates increases in shop requirements and rewards from battles."""
-    return round(start * ((1 + 0.5) ** time))
+    return int(round(start * ((1 + 0.5) ** time)))
 
 
 def level_select() -> None:
@@ -135,12 +134,12 @@ def level_select() -> None:
     if level > 0:
         for i in levels_list_str[0:level + 2]:  # Displays level choices
             print(i)
-        level_choice: str = input("Choose a level: ")
+        level_choice: str = str(input("Choose a level: "))
         levels_allowed: list[str] = []  # Next few lines used to error test for level inputs
         for i in range(0, level + 2):
             levels_allowed.append(str(i))
         while level_choice not in levels_allowed:
-            level_choice = input(f"Please choose an integer from 0 to {levels_allowed[-1]}")
+            level_choice = str(input(f"Please choose an integer from 0 to {levels_allowed[-1]}"))
         levels_list[int(level_choice)]()  # Runs level function based on choice
 
 
@@ -174,11 +173,11 @@ def level_one() -> None:
     print(f"Welcome to the Northern Battlefield {player}. The defense line has worn thin and you are here to push the enemy back. You quickly engage with the first enemy, the renowned warrior Dwayne the {ROCK} Johnson. Ready? {ROCK},{PAPER},{SCISSORS} !")
     for i in skillset_player:  # Displays character skills
         print(i)
-    player_choice: str = input("Choose your skill: ")
+    player_choice: str = str(input("Choose your skill: "))
     while player_choice not in skillset_player:  # Ensures move choice
-        player_choice = input("Choose a skill you know: ")
+        player_choice = str(input("Choose a skill you know: "))
     while player_choice == all_skills[0]:  # Tie check
-        player_choice = input("Its a tie, choose again: ")
+        player_choice = str(input("Its a tie, choose again: "))
     battle: int = skills(all_skills[0], player_choice)  # Win condition check
     if battle == 1:
         print(f"You chose {player_choice} while Dwayne the {ROCK} Johnson chose {all_skills[0]}. Guess you can't choose {all_skills[0]} every time.")
@@ -191,9 +190,9 @@ def level_one() -> None:
         points += spirit_gain
         main()
     else:
-        defeat: str = input(f"You chose {player_choice} while Dwayne the {ROCK} Johnson chose {all_skills[0]}. 1. Fight again or 2. retreat?")
+        defeat: str = str(input(f"You chose {player_choice} while Dwayne the {ROCK} Johnson chose {all_skills[0]}. 1. Fight again or 2. retreat?"))
         while defeat not in ["1", "2"]:  # Loss returns or repeats
-            defeat = int(input("Choose to 1. Fight or 2. Retreat"))
+            defeat = str(input("Choose to 1. Fight or 2. Retreat"))
         if defeat == "1":
             level_one()
         else:
@@ -226,12 +225,12 @@ def level_three() -> None:
 def level_four() -> None:
     """Infinite mode for player to have fun after game is beaten."""
     print("While you have defeated the commander, the enemy does not rest! Keep up the fight to earn eternal glory!")
-    choose_fight: str = input("Choose to fight the army of the enemy best out of: ")
+    choose_fight: str = str(input("Choose to fight the army of the enemy best out of: "))
     check_length_of_fight: list[str] = []
     for i in range(1, 26):  # Ensures reasonable and numeric input for fight amount
         check_length_of_fight.append(str(i))
     while choose_fight not in check_length_of_fight:
-        choose_fight = input("Please choose an integer from 1 to 25")
+        choose_fight = str(input("Please choose an integer from 1 to 25"))
     win_cond: int = round(int(choose_fight) / 2)  # Majority wins means victory
     result: list[int] = best_out_of_x(win_cond, range(15), False)
     win_message: str = f"You won the fight with {result[0]} wins! The name {player} gains {result[2]} Fame across spacetime. You gain {result[3]} Spirit."
@@ -246,15 +245,15 @@ def minion(skills_list: list[int], fame_gain: int, spirit_gain: int) -> int:
     for i in skillset_player:
         print(i)
     enemy_choice: str = random.choice([all_skills[i] for i in skills_list])  # Randomly chooses skills based on input skillset
-    player_choice: str = input("Choose your skill: ")
+    player_choice: str = str(input("Choose your skill: "))
     while player_choice not in skillset_player:  # Ensures player selection
-        player_choice = input("Choose a skill you know: ")
+        player_choice = str(input("Choose a skill you know: "))
     tie: bool = False
     if player_choice == enemy_choice:  # Tie control
         tie = True
     while tie:  # The following is done so that if a tie the enemy rerolls their skill before the player does and keeps going in that order until not a tie. If not in place enemy choice would change after player choice meaning a win would become a loss
         enemy_choice = random.choice([all_skills[i] for i in skills_list])
-        player_choice = input("Its a tie, choose again: ")
+        player_choice = str(input("Its a tie, choose again: "))
         if player_choice != enemy_choice:
             tie = False
     battle: int = skills(enemy_choice, player_choice)  # Checks win conditions
@@ -283,7 +282,7 @@ def best_out_of_x(win_cond: int, enemy_skills: list[int], boss: bool) -> list[in
             enemy_prediction: list[str] = random.sample(all_skills, 5)
             for i in skillset_player:
                 print(i)
-            player_choice: str = input("Think about what skill you will use: ")
+            player_choice: str = str(input("Think about what skill you will use: "))
             if player_choice in enemy_prediction:
                 print("Your mind was read! You lose this round.")
                 enemy_score += 1
@@ -315,9 +314,9 @@ def win_or_defeat(level_add: int, level_func, win_cond: int, player_score: int, 
     if enemy_score == win_cond:  # Loss
         print(lose_message)
         if not infinite:  # Normal levels
-            defeat: str = input("1. Fight again or 2. retreat?")
+            defeat: str = str(input("1. Fight again or 2. retreat?"))
             while defeat not in ["1", "2"]:  # Return or repeat
-                defeat = input("Choose to 1. Fight or 2. Retreat")
+                defeat = str(input("Choose to 1. Fight or 2. Retreat"))
             if defeat == "1":
                 level_func()
             else:
